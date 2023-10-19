@@ -52,7 +52,7 @@
 1. Склонуйте цей репозиторій:
 
 ```bash
- git clone https://github.com/Anna-Grigorovichfinancial-dashboard.git
+ git clone https://github.com/Anna-Grigorovich/financial-dashboard.git
 ```
 
 2. Встановіть необхідні залежності:
