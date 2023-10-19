@@ -1,0 +1,44 @@
+<div class="container topUser">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="text-center">Топ користувачі</h2>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <h3>За отриманими кредитами</h3>
+          <ul class="list-group">
+            <li
+              class="list-group-item"
+              *ngFor="let user of topUsersReceivedCredits; let i = index"
+            >
+              {{ i + 1 }}. {{ user }}
+            </li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>За сплаченими відсотками</h3>
+          <ul class="list-group">
+            <li
+              class="list-group-item"
+              *ngFor="let user of topUsersPaidInterest; let i = index"
+            >
+              {{ i + 1 }}. {{ user }}
+            </li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>За вернутими кредитами</h3>
+          <ul class="list-group">
+            <li
+              class="list-group-item"
+              *ngFor="let user of topUsersReturnedCredits; let i = index"
+            >
+              {{ i + 1 }}. {{ user }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

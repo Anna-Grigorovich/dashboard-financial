@@ -1,0 +1,35 @@
+Фильтры
+<input
+  type="text"
+  placeholder="Фільтр за датою видачі"
+  (input)="updateIssuanceDateFilter($event)"
+/>
+<input
+  type="text"
+  placeholder="
+Фільтр за датою повернення"
+  (input)="updateActualReturnDateFilter($event)"
+/>
+<input type="checkbox" (change)="updateOverdueFilter($event)" />
+Показати прострочені кредити
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>User</th>
+    <th>Issuance Date</th>
+    <th>Return Date</th>
+    <th>Actual Return Date</th>
+    <th>Body</th>
+    <th>Percent</th>
+  </tr>
+  <tr *ngFor="let loan of filteredLoans$ | async">
+    <td>{{ loan.id }}</td>
+    <td>{{ loan.user }}</td>
+    <td>{{ loan.issuance_date }}</td>
+    <td>{{ loan.return_date }}</td>
+    <td>{{ loan.actual_return_date }}</td>
+    <td>{{ loan.body }}</td>
+    <td>{{ loan.percent }}</td>
+  </tr>
+</table>
