@@ -44,19 +44,26 @@
 - **HTML/CSS:** Для створення користувацького інтерфейсу.
 
 - **Bootstrap:** Для стилізації та розмітки.
+
 ## Встановлення
 
 Для запуску проекту локально виконайте наступні кроки:
 
 1. Склонуйте цей репозиторій:
 
-   ```bash
-   git clone https://github.com/your-username/financial-dashboard.git
+```bash
+ git clone https://github.com/Anna-Grigorovichfinancial-dashboard.git
+```
+
 2. Встановіть необхідні залежності:
 
+```bash
 npm install
+```
 
-3. Запустіть додаток:  
+3. Запустіть додаток:
 
+```bash
 ng serve
 
+```
