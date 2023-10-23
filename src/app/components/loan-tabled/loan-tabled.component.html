@@ -1,4 +1,4 @@
-Фильтры
+Фильтри
 <input
   type="text"
   placeholder="Фільтр за датою видачі"
@@ -10,9 +10,18 @@
 Фільтр за датою повернення"
   (input)="updateActualReturnDateFilter($event)"
 />
+<input
+  type="text"
+  placeholder="Початкова дата"
+  (input)="updateStartDateFilter($event)"
+/>
+<input
+  type="text"
+  placeholder="Кінцева дата"
+  (input)="updateEndDateFilter($event)"
+/>
 <input type="checkbox" (change)="updateOverdueFilter($event)" />
 Показати прострочені кредити
-
 <table>
   <tr>
     <th>ID</th>
