@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { IapiData, LoanService } from '../../loan.service';
 
@@ -15,8 +14,12 @@ export class LoanTableComponent implements OnInit {
 
   issuanceDateFilter = new BehaviorSubject<string>('');
   actualReturnDateFilter = new BehaviorSubject<string>('');
-  startDateFilter = new BehaviorSubject<string>(''); // Начальная дата фильтра
-  endDateFilter = new BehaviorSubject<string>(''); // Конечная дата фильтра
+  startDateFilter = new BehaviorSubject<string>(''); // Начальная дата фильтра выдачи
+  endDateFilter = new BehaviorSubject<string>(''); // Конечная дата фильтра выдачи
+
+  startReturnDateFilter = new BehaviorSubject<string>(''); // Начальная дата возврата
+  endReturnDateFilter = new BehaviorSubject<string>(''); // Конечная дата возврата
+
   overdueFilter = new BehaviorSubject<boolean>(false);
   filteredLoans$: Observable<IapiData[]>;
 
@@ -25,9 +28,11 @@ export class LoanTableComponent implements OnInit {
       this.loanService.getLoans(),
       this.issuanceDateFilter,
       this.actualReturnDateFilter,
-      this.startDateFilter,
-      this.endDateFilter,
+      this.startDateFilter, // Начальная дата выдачи
+      this.endDateFilter, // Конечная дата выдaчи
       this.overdueFilter,
+      this.startReturnDateFilter, // Начальная дата возврата
+      this.endReturnDateFilter, // Конечная дата возврата
     ]).pipe(
       map(
         ([
@@ -37,6 +42,8 @@ export class LoanTableComponent implements OnInit {
           startDate,
           endDate,
           isOverdue,
+          startReturnDate,
+          endReturnDate,
         ]) => {
           return loans.filter((loan) => {
             const issuanceDateMatch =
@@ -44,10 +51,16 @@ export class LoanTableComponent implements OnInit {
             const actualReturnDateMatch =
               !actualReturnDate ||
               loan.actual_return_date?.includes(actualReturnDate);
-            const startDateMatch =
+            const startDateMatch = // Фильтр по начальной дате выдачи
               !startDate || new Date(loan.issuance_date) >= new Date(startDate);
-            const endDateMatch =
+            const endDateMatch = // Фильтр по конечной дате выдачи
               !endDate || new Date(loan.issuance_date) <= new Date(endDate);
+            const startReturnDateMatch = // Фильтр по начальной дате возврата
+              !startReturnDate ||
+              new Date(loan.return_date) >= new Date(startReturnDate);
+            const endReturnDateMatch = // Фильтр по конечной дате возврата
+              !endReturnDate ||
+              new Date(loan.return_date) <= new Date(endReturnDate);
             const overdueMatch =
               !isOverdue ||
               (loan.actual_return_date &&
@@ -61,6 +74,8 @@ export class LoanTableComponent implements OnInit {
               actualReturnDateMatch &&
               startDateMatch &&
               endDateMatch &&
+              startReturnDateMatch &&
+              endReturnDateMatch &&
               overdueMatch
             );
           });
@@ -94,6 +109,16 @@ export class LoanTableComponent implements OnInit {
     const value = (event.target as HTMLInputElement).checked;
 
     this.overdueFilter.next(value);
+  }
+
+  updateReturnDateFilter(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.startReturnDateFilter.next(value);
+  }
+
+  updateReturnEndDateFilter(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.endReturnDateFilter.next(value);
   }
 
   ngOnInit() {
